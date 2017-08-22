@@ -15,6 +15,7 @@ resource "aws_subnet" "vpcProdSubnet1a" {
   vpc_id            = "${aws_vpc.vpcProd.id}"
   availability_zone = "eu-west-1a"
   cidr_block        = "172.23.1.0/24"
+  map_public_ip_on_launch = "true"
 
   tags {
     Name = "Subnet-Prod-1a"
@@ -25,6 +26,7 @@ resource "aws_subnet" "vpcProdSubnet1b" {
   vpc_id            = "${aws_vpc.vpcProd.id}"
   availability_zone = "eu-west-1b"
   cidr_block        = "172.23.2.0/24"
+  map_public_ip_on_launch = "true"
 
   tags {
     Name = "Subnet-Prod-1b"
