@@ -1,12 +1,32 @@
 provider "aws" {
-  region     = "eu-west-1"
+  region = "eu-west-1"
 }
 
-resource "aws_vpc" "main" {
+resource "aws_vpc" "vpcProd" {
   cidr_block       = "172.23.0.0/16"
   instance_tenancy = "dedicated"
 
   tags {
     Name = "VPC-Prod"
+  }
+}
+
+resource "aws_subnet" "vpcProdSubnet1a" {
+  vpc_id            = "${aws_vpc.vpcProd.id}"
+  availability_zone = "eu-west-1a"
+  cidr_block        = "172.23.1.0/24"
+
+  tags {
+    Name = "Subnet-Prod-1a"
+  }
+}
+
+resource "aws_subnet" "vpcProdSubnet1b" {
+  vpc_id            = "${aws_vpc.vpcProd.id}"
+  availability_zone = "eu-west-1b"
+  cidr_block        = "172.23.2.0/24"
+
+  tags {
+    Name = "Subnet-Prod-1b"
   }
 }
