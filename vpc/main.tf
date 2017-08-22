@@ -40,3 +40,26 @@ resource "aws_internet_gateway" "vpcProdIgw" {
     Name = "vpcProdIgw"
   }
 }
+
+resource "aws_route_table" "routeTableProdPublic" {
+  vpc_id = "${aws_vpc.vpcProd.id}"
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = "${aws_internet_gateway.vpcProdIgw.id}"
+  }
+
+  tags {
+    Name = "routeTableProdPublic"
+  }
+}
+
+resource "aws_route_table_association" "routeTableAssocPublic1a" {
+  subnet_id      = "${aws_subnet.vpcProdSubnet1a.id}"
+  route_table_id = "${aws_route_table.routeTableProdPublic.id}"
+}
+
+resource "aws_route_table_association" "routeTableAssocPublic1b" {
+  subnet_id      = "${aws_subnet.vpcProdSubnet1b.id}"
+  route_table_id = "${aws_route_table.routeTableProdPublic.id}"
+}
