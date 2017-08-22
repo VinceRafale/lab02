@@ -32,3 +32,12 @@ resource "aws_subnet" "vpcProdSubnet1b" {
     Name = "Subnet-Prod-1b"
   }
 }
+
+resource "aws_internet_gateway" "vpcProdIgw" {
+  vpc_id = "${aws_vpc.vpcProd.id}"
+
+  tags {
+    Name = "vpcProdIgw"
+  }
+}
+
