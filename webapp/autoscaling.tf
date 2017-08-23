@@ -22,7 +22,7 @@ resource "aws_autoscaling_group" "pubAsgProd" {
 
 resource "aws_launch_configuration" "asgconf" {
   name_prefix   = "web_config"
-  image_id      = "${data.aws_ami.ubuntu.id}"
+  image_id      = "${var.ami_id}"
   instance_type = "${var.instance_type}"
   security_groups = ["${aws_security_group.allowHttpSsh.id}"]
   key_name        = "lab02keypair"

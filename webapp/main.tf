@@ -2,36 +2,6 @@ provider "aws" {
   region = "eu-west-1"
 }
 
-data "aws_ami" "ubuntu" {
-  most_recent = true
-
-  filter {
-    name   = "name"
-    values = ["webapp*"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
-  owners = ["461013952457"] # my personal id 
-}
-
-#resource "aws_instance" "webserver1" {
-#  count                  = "${var.instance_count}"
-#  ami                    = "${data.aws_ami.ubuntu.id}"
-#  instance_type          = "${var.instance_type}"
-#  subnet_id              = "${element(data.terraform_remote_state.vpc.subnet_ids, count.index)}"
-#  key_name               = "lab02keypair"
-#  vpc_security_group_ids = ["${aws_security_group.allowHttpSsh.id}"]
-#  user_data              = "${data.template_file.webserverInit.rendered}"
-
-#  tags {
-#    Name = "webserver1"
-#  }
-#}
-
 resource "aws_security_group" "allowHttpSsh" {
   name        = "allow_http_ssh"
   description = "Allow http and ssh inbound traffic"

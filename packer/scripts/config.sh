@@ -15,4 +15,5 @@ EOF
 #git clone https://github.com/d2si/webapp.git /var/webapp
 mkdir -p /var/webapp/
 cp -p /tmp/index.html /var/webapp/
+sed -e '#everybody#vincent#' /var/webapp/index.html
 systemctl restart nginx
