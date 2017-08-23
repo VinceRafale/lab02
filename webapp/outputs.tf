@@ -1,7 +1,3 @@
-output "webserver_ip" {
-  value = ["${aws_instance.webserver1.*.public_ip}"]
-}
-
-output "elb_ip" {
+output "elb_dns_name" {
   value = "${aws_elb.pubElbProd.dns_name}"
 }

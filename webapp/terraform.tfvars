@@ -1,2 +1,3 @@
 instance_type = "m4.large"
-instance_count = "2"
+asgmin = "2"
+asgmax = "4"
