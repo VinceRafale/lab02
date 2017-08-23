@@ -13,4 +13,5 @@ server {
 EOF
 git clone https://github.com/d2si/webapp.git /var/webapp
 sed -i 's#everybody#${username}#' /var/webapp/index.html
+echo `hostname` >> /var/webapp/index.html
 service nginx restart
