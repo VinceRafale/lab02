@@ -13,7 +13,7 @@
     },
     "instance_type": "m4.large",
     "ssh_username": "ubuntu",
-    "ami_name": "webapp v2",
+    "ami_name": "webapp v2 {{timestamp}}",
     "vpc_id": "vpc-bbe77bdc",
     "subnet_id": "subnet-2b7aee4c"
   }],
