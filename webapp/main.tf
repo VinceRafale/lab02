@@ -18,19 +18,19 @@ data "aws_ami" "ubuntu" {
   owners = ["099720109477"] # Canonical
 }
 
-resource "aws_instance" "webserver1" {
-  count                  = "${var.instance_count}"
-  ami                    = "${data.aws_ami.ubuntu.id}"
-  instance_type          = "${var.instance_type}"
-  subnet_id              = "${element(data.terraform_remote_state.vpc.subnet_ids, count.index)}"
-  key_name               = "lab02keypair"
-  vpc_security_group_ids = ["${aws_security_group.allowHttpSsh.id}"]
-  user_data              = "${data.template_file.webserverInit.rendered}"
+#resource "aws_instance" "webserver1" {
+#  count                  = "${var.instance_count}"
+#  ami                    = "${data.aws_ami.ubuntu.id}"
+#  instance_type          = "${var.instance_type}"
+#  subnet_id              = "${element(data.terraform_remote_state.vpc.subnet_ids, count.index)}"
+#  key_name               = "lab02keypair"
+#  vpc_security_group_ids = ["${aws_security_group.allowHttpSsh.id}"]
+#  user_data              = "${data.template_file.webserverInit.rendered}"
 
-  tags {
-    Name = "webserver1"
-  }
-}
+#  tags {
+#    Name = "webserver1"
+#  }
+#}
 
 resource "aws_security_group" "allowHttpSsh" {
   name        = "allow_http_ssh"
@@ -98,7 +98,7 @@ resource "aws_elb" "pubElbProd" {
     interval            = 5
   }
 
-  instances       = ["${aws_instance.webserver1.*.id}"]
+# instances       = ["${aws_instance.webserver1.*.id}"]
   security_groups = ["${aws_security_group.elbhttp.id}"]
 
   tags {
