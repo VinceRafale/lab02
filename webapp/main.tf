@@ -20,8 +20,8 @@ data "aws_ami" "ubuntu" {
 
 resource "aws_instance" "webserver1" {
   ami                    = "${data.aws_ami.ubuntu.id}"
-  instance_type          = "m4.large"
-  subnet_id              = "subnet-c323f298"
+  instance_type          = "${var.instance_type}"
+  subnet_id              = "${element(data.terraform_remote_state.vpc.subnet_ids, 0)}"
   key_name               = "lab02keypair"
   vpc_security_group_ids = ["${aws_security_group.allowHttpSsh.id}"]
   user_data              = "${data.template_file.webserverInit.template}"
@@ -34,7 +34,7 @@ resource "aws_instance" "webserver1" {
 resource "aws_security_group" "allowHttpSsh" {
   name        = "allow_http_ssh"
   description = "Allow http and ssh inbound traffic"
-  vpc_id      = "vpc-d29508b5"
+  vpc_id      = "${data.terraform_remote_state.vpc.vpc_id}"
 
   ingress {
     from_port   = 22
