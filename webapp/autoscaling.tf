@@ -24,7 +24,6 @@ resource "aws_launch_configuration" "asgconf" {
   name_prefix   = "web_config"
   image_id      = "${data.aws_ami.ubuntu.id}"
   instance_type = "${var.instance_type}"
-  user_data     = "${data.template_file.webserverInit.rendered}" 
   security_groups = ["${aws_security_group.allowHttpSsh.id}"]
   key_name        = "lab02keypair"
 

@@ -1,0 +1,41 @@
+{
+  "builders": [{
+    "type": "amazon-ebs",
+    "region": "eu-west-1",
+    "source_ami_filter": {
+      "filters": {
+      "virtualization-type": "hvm",
+      "name": "*ubuntu-xenial-16.04-amd64-server-*",
+      "root-device-type": "ebs"
+      },
+      "owners": ["099720109477"],
+      "most_recent": true
+    },
+    "instance_type": "m4.large",
+    "ssh_username": "ubuntu",
+    "ami_name": "webapp v2",
+    "vpc_id": "vpc-bbe77bdc",
+    "subnet_id": "subnet-2b7aee4c"
+  }],
+  "provisioners": [
+	{
+	 "type": "shell",
+	 "inline": [
+	   "sleep 10"
+	  ]
+        },
+	{
+	 "type": "file",
+	 "source": "{{template_dir}}/files/index.html",
+	 "destination": "/tmp/index.html"
+	},
+	{
+	 "type": "shell",
+         "scripts": [ 
+		"{{template_dir}}/scripts/config.sh"
+	 ],
+	"execute_command": "{{ .Vars }} sudo -E sh '{{ .Path }}'"
+	}
+
+  ]
+}

@@ -7,7 +7,7 @@ data "aws_ami" "ubuntu" {
 
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-trusty-14.04-amd64-server-*"]
+    values = ["webapp*"]
   }
 
   filter {
@@ -15,7 +15,7 @@ data "aws_ami" "ubuntu" {
     values = ["hvm"]
   }
 
-  owners = ["099720109477"] # Canonical
+  owners = ["461013952457"] # my personal id 
 }
 
 #resource "aws_instance" "webserver1" {
