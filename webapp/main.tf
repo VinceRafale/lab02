@@ -19,9 +19,10 @@ data "aws_ami" "ubuntu" {
 }
 
 resource "aws_instance" "webserver1" {
+  count = "${var.instance_count}"
   ami                    = "${data.aws_ami.ubuntu.id}"
   instance_type          = "${var.instance_type}"
-  subnet_id              = "${element(data.terraform_remote_state.vpc.subnet_ids, 0)}"
+  subnet_id              = "${element(data.terraform_remote_state.vpc.subnet_ids, count.index)}"
   key_name               = "lab02keypair"
   vpc_security_group_ids = ["${aws_security_group.allowHttpSsh.id}"]
   user_data              = "${data.template_file.webserverInit.template}"
