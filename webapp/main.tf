@@ -73,6 +73,7 @@ resource "aws_elb" "pubElbProd" {
 
   tags {
     Name = "public-elb-prod"
+    Env = "Dev"
   }
 }
 
