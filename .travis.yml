@@ -11,10 +11,7 @@ before_script:
 - "$TRAVIS_BUILD_DIR/tools/install_packages.sh $TOOLS_DIR"
 script:
 - cd $TRAVIS_BUILD_DIR/packer
-- which packer
-- packer --version
-- echo "ami-3c5ca245" > /tmp/packer.out
-#- packer build webapp.json | tee /tmp/packer.out
-- export AMI=$(awk -F':' '/(eu|us|ap|sa)-(west|central|east|northeast|southeast)-(1|2): ami-/ {print $2}' /tmp/packer.out |  tr -d '[[:space:]]')
+- packer build webapp.json | tee /tmp/packer.out
+- AMI=`awk -F':' '/(eu|us|ap|sa)-(west|central|east|northeast|southeast)-(1|2): ami-/ {print $2}' /tmp/packer.out |  tr -d '[[:space:]]'`
 - cd $TRAVIS_BUILD_DIR/webapp
 - terraform plan -var ami_id=$AMI && terraform apply -var ami_id=$AMI
