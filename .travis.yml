@@ -11,7 +11,7 @@ before_script:
 - export PATH=$PATH:$TOOLS_DIR/bin
 script:
 - cd $TRAVIS_BUILD_DIR/packer
-- packer build packer.json | tee /tmp/packer.out
+- packer build webapp.json | tee /tmp/packer.out
 - AMI=$(awk -F':' '/(eu|us|ap|sa)-(west|central|east|northeast|southeast)-(1|2): ami-/
     {print $2}' /tmp/packer.out |  tr -d '[[:space:]]')
 - cd $TRAVIS_BUILD_DIR/webapp
